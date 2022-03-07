@@ -3,8 +3,6 @@ import torch.nn as nn
 
 class Action_Conditioned_FF(nn.Module):
     def __init__(self):
-# STUDENTS: __init__() must initiatize nn.Module and define your network's
-# custom architecture
         super(Action_Conditioned_FF, self).__init__()
         self.input_size = 6
         self.hidden1_size = 100
@@ -19,8 +17,6 @@ class Action_Conditioned_FF(nn.Module):
         self.sigmoid = nn.Sigmoid()
 
     def forward(self, input):
-# STUDENTS: forward() must complete a single forward pass through your network
-# and return the output which should be a tensor
         hidden1 = self.input_to_hidden1(input)
         hidden1 = self.relu(hidden1)
 
@@ -36,10 +32,6 @@ class Action_Conditioned_FF(nn.Module):
 
 
     def evaluate(self, model, test_loader, loss_function):
-# STUDENTS: evaluate() must return the loss (a value, not a tensor) over your testing dataset. Keep in
-# mind that we do not need to keep track of any gradients while evaluating the
-# model. loss_function will be a PyTorch loss function which takes as argument the model's
-# output and the desired output.
         runningLoss = torch.tensor(0.0)
         for idx, sample in enumerate(test_loader):
             runningLoss += loss_function(self.forward(sample['input']), torch.reshape(sample['label'], (len(sample['input']),1)))
